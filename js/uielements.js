@@ -126,5 +126,5 @@ function getImage(suit, value){
             v = value;
             break;
     }
-    return "../assets/" + v + "_of_" + s + ".png";
+    return "assets/" + v + "_of_" + s + ".png";
 }
