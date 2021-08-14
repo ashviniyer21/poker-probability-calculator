@@ -86,6 +86,16 @@ function addPlayer(name){
     }
 }
 
+function removePlayer(){
+    if(count > 2){
+        players.pop();
+        let table = document.getElementById("table");
+        table.deleteRow(-1);
+        table.deleteRow(-1);
+        count--;
+    }
+}
+
 function getTitle(content){
     let h3 = document.createElement("h3");
     h3.innerHTML = content;
