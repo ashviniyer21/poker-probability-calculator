@@ -7,11 +7,10 @@ function createCardButton(id){
     let popup = document.createElement("div");
     popup.className = "popup";
 
-    button.innerHTML = '<img src="../assets/facedown.png"  alt="Face Down"/>';
+    button.innerHTML = "<img src=\"../assets/facedown.png\"  alt=\"Face Down\"/>";
 
 
     button.onclick = function () {
-        console.log("Clicking");
         popup.style.display = "block";
     }
 
