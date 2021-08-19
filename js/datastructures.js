@@ -2,6 +2,28 @@ class Card {
     constructor(suit, value) {
         this.suit = suit;
         this.value = value;
+        this.cardName = value + suit;
+        let tempVal = 0;
+        if(value === "A"){
+            tempVal = 14;
+        } else if(value === "K"){
+            tempVal = 13;
+        } else if(value === "Q"){
+            tempVal = 12;
+        } else if(value === "J"){
+            tempVal = 11;
+        } else {
+            tempVal = parseInt(value);
+        }
+        if(suit === "S"){
+            this.sortVal = tempVal;
+        } else if(suit === "C"){
+            this.sortVal = 13 + tempVal;
+        } else if(suit === "D"){
+            this.sortVal = 26 + tempVal;
+        } else {
+            this.sortVal = 39 + tempVal;
+        }
     }
 }
 

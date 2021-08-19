@@ -15,5 +15,9 @@ playerAdd.onclick = function () {
     addPlayer("Player " + count);
     count += 1;
 }
-
-// console.log(isFullHouse(new Card("S", "2"), new Card("S", "3"), new Card("S", "4"), new Card("S", "5"), new Card("S", "6")));
+let odds = {};
+fetch("assets/poker_odds.json")
+    .then(response => response.json())
+    .then(data => {
+        odds = data;
+    });

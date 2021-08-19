@@ -24,57 +24,29 @@ function calculateHand(flop, hand){
     for(let i = 0; i < hand.length; i++){
         arr.push(hand[i]);
     }
-    let x;
     for (let i = 0; i < 3; i++) {
         for (let j = i + 1; j < 4; j++) {
             for (let k = j + 1; k < 5; k++) {
                 for (let l = k + 1; l < 6; l++) {
                     for (let m = l + 1; m < 7; m++) {
-                        let c1 = arr[i];
-                        let c2 = arr[j];
-                        let c3 = arr[k];
-                        let c4 = arr[l];
-                        let c5 = arr[m];
-                        if (isFlush(c1, c2, c3, c4, c5) !== -1 && isStraight(c1, c2, c3, c4, c5) === 14) {
-                            let t = updateAns(ans, val, 10, 14);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = isFlush(c1, c2, c3, c4, c5)) !== -1 && isStraight(c1, c2, c3, c4, c5) !== -1) {
-                            let t = updateAns(ans, val, 9, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = is4OfAKind(c1, c2, c3, c4, c5)) !== -1) {
-                            let t = updateAns(ans, val, 8, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = isFullHouse(c1, c2, c3, c4, c5)) !== -1){
-                            let t = updateAns(ans, val, 7, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = isFlush(c1, c2, c3, c4, c5)) !== -1){
-                            let t = updateAns(ans, val, 6, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = isStraight(c1, c2, c3, c4, c5)) !== -1){
-                            let t = updateAns(ans, val, 5, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = is3OfAKind(c1, c2, c3, c4, c5)) !== -1){
-                            let t = updateAns(ans, val, 4, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = is2Pair(c1, c2, c3, c4, c5)) !== -1){
-                            let t = updateAns(ans, val, 3, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else if ((x = isPair(c1, c2, c3, c4, c5)) !== -1){
-                            let t = updateAns(ans, val, 2, x);
-                            ans = t[0];
-                            val = t[1];
-                        } else {
-                            let t = updateAns(ans, val, 1, getMax(c1, c2, c3, c4, c5));
-                            ans = t[0];
-                            val = t[1];
+                        let name = "";
+                        let cards = [arr[i], arr[j], arr[k], arr[l], arr[m]];
+                        cards.sort(function (a, b) {
+                            return a.sortVal - b.sortVal;
+                        });
+                        // console.log(cards);
+                        for(let a = 0; a < cards.length; a++){
+                            name += cards[a].cardName;
+                        }
+                        // console.log(name);
+                        // console.log(odds[name]);
+                        let tempAns = odds[name][0];
+                        let tempVal = odds[name][1];
+                        if(tempAns > ans){
+                            ans = tempAns;
+                            val = tempVal;
+                        } else if(tempAns === ans && tempVal > val){
+                            val = tempVal;
                         }
                     }
                 }
