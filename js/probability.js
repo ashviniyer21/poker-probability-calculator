@@ -24,6 +24,7 @@ function calculateHand(flop, hand){
     for(let i = 0; i < hand.length; i++){
         arr.push(hand[i]);
     }
+    // console.log(arr);
     for (let i = 0; i < 3; i++) {
         for (let j = i + 1; j < 4; j++) {
             for (let k = j + 1; k < 5; k++) {
@@ -56,121 +57,65 @@ function calculateHand(flop, hand){
     return [ans, val];
 }
 
-function updateAns(ans, val, newAns, newVal){
-    if(newAns > ans){
-        ans = newAns;
-        val = newVal;
-    } else if(newAns === ans && newVal > val){
-        val = newVal;
-    }
-    return [ans, val];
-}
-
-function isFlush(c1, c2, c3, c4, c5){
-    if(c1.suit === c2.suit && c1.suit === c3.suit && c1.suit === c4.suit && c1.suit === c5.suit){
-        getMax(c1, c2, c3, c4, c5)
-    }
-    return -1;
-}
-
-function isStraight(c1, c2, c3, c4, c5){
-    let arr = [conversion[c1.value], conversion[c2.value], conversion[c3.value], conversion[c4.value], conversion[c5.value]];
-    arr.sort();
-    for(let i = 2; i <= 10; i++){
-        if(arr[0] === i && arr[1] === i + 1 && arr[2] === i + 2 && arr[3] === i + 3 && arr[4] === i + 4){
-            return i + 4;
-        }
-    }
-    return -1;
-}
-
-function is4OfAKind(c1, c2, c3, c4, c5){
-    let arr = [conversion[c1.value], conversion[c2.value], conversion[c3.value], conversion[c4.value], conversion[c5.value]];
-    for(let i = 0; i < 2; i++){
-        for(let j = i + 1; j < 3; j++){
-            for(let k = j + 1; k < 4; k++){
-                for(let l = k + 1; l < 5; l++){
-                    if(arr[i] === arr[j] && arr[i] === arr[k] && arr[i] === arr[l]){
-                        return arr[i];
-                    }
-                }
-            }
-        }
-    }
-    return -1;
-}
-
-function isFullHouse(c1, c2, c3, c4, c5){
-    let arr = [conversion[c1.value], conversion[c2.value], conversion[c3.value], conversion[c4.value], conversion[c5.value]];
-    for(let i = 0; i < 3; i++){
-        for(let j = i + 1; j < 4; j++){
-            for(let k = j + 1; k < 5; k++){
-                let t = [];
-                for(let l = 0; l < 5; l++){
-                    if(l !== i && l !== j && l !== k){
-                        t.push(l);
-                    }
-                }
-                if(arr[i] === arr[j] && arr[i] === arr[k] && arr[t[0]] === arr[t[1]]){
-                    return Math.max(arr[i], arr[t[0]]);
-                }
-            }
-        }
-    }
-    return -1;
-}
-
-function is3OfAKind(c1, c2, c3, c4, c5){
-    let arr = [conversion[c1.value], conversion[c2.value], conversion[c3.value], conversion[c4.value], conversion[c5.value]];
-    for(let i = 0; i < 2; i++){
-        for(let j = i + 1; j < 3; j++){
-            for(let k = j + 1; k < 4; k++){
-                if(arr[i] === arr[j] && arr[i] === arr[k]){
-                    return arr[i];
-                }
-            }
-        }
-    }
-    return -1;
-}
-
-function is2Pair(c1, c2, c3, c4, c5){
-    let val = -1;
-    let count = 0;
-    let arr = [conversion[c1.value], conversion[c2.value], conversion[c3.value], conversion[c4.value], conversion[c5.value]];
-    for(let i = 0; i < 2; i++){
-        for(let j = i + 1; j < 3; j++){
-            if(arr[i] === arr[j]){
-                val = Math.max(val, arr[i]);
-                count += 1;
-            }
-        }
-    }
-    if(count === 2){
-        return val;
-    }
-    return -1;
-}
-
-function isPair(c1, c2, c3, c4, c5){
-    let arr = [conversion[c1.value], conversion[c2.value], conversion[c3.value], conversion[c4.value], conversion[c5.value]];
-    for(let i = 0; i < 2; i++){
-        for(let j = i + 1; j < 3; j++){
-            if(arr[i] === arr[j]){
-                return arr[i];
-            }
-        }
-    }
-    return -1;
-}
-
-function getMax(c1, c2, c3, c4, c5){
-    return Math.max(conversion[c1.value], conversion[c2.value], conversion[c3.value], conversion[c4.value], conversion[c5.value]);
-}
-
 let combinations = [];
 
 
+function calculateProbability2(){
+    console.log("calculating");
+    let keys = Object.keys(odds);
+    let flopNames = ["Flop1", "Flop2", "Flop3", "Flop4", "Flop5"];
+    for(let i = 0; i < flopNames.length; i++){
+        if(cards[flopNames[i]] != null){
+            filter(keys, cards[flopNames[i]]);
+        }
+    }
+    let dist = [];
+    for(let i = 0; i < 140; i++){
+        dist.push(0);
+    }
+    for(let i = 0; i < keys.length; i++){
+        let vals = odds[keys[i]];
+        let score = vals[0] * 14 + vals[1] - 1;
+        dist[score]++;
+    }
+    console.log(keys.length);
+    for(let i = 0; i < dist.length; i++){
+        dist[i] /= keys.length;
+    }
+    let newDist = [];
+    newDist.push(dist[0] / 2);
+    for(let i = 1; i < dist.length; i++){
+        newDist.push(dist[i] / 2 + dist[i - 1] / 2 + newDist[i-1]);
+    }
+    for(let i = 0; i < players.length; i++){
+        let c1 = cards[players[i].card1Name];
+        let c2 = cards[players[i].card2Name];
+        let playerKeys = [...keys];
+        if(c1 != null){
+            filter(playerKeys, c1);
+        }
+        if(c2 != null){
+            filter(playerKeys, c2);
+        }
+        let prob = 0;
+        for(let j = 0; j < playerKeys.length; j++){
+            let vals = odds[playerKeys[j]];
+            let score = vals[0] * 14 + vals[1] - 1;
+            prob += newDist[score];
+        }
+        prob /= playerKeys.length;
+        document.getElementById("probability").innerHTML += "Player " + String(i + 1) + ": " + String(Math.round(prob * 100) / 100) + "\n";
+    }
+}
+
+function filter(keys, card){
+    for(let i = 0; i < keys.length; i++){
+        if(keys[i].indexOf(card.cardName) === -1){
+            keys.splice(i, 1);
+            i--;
+        }
+    }
+}
 
 function calculateProbability(){
     console.log("calculating");

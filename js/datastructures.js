@@ -3,9 +3,9 @@ class Card {
         this.suit = suit;
         this.value = value;
         this.cardName = value + suit;
-        let tempVal = 0;
+        let tempVal;
         if(value === "A"){
-            tempVal = 14;
+            tempVal = 1;
         } else if(value === "K"){
             tempVal = 13;
         } else if(value === "Q"){
@@ -48,8 +48,16 @@ class Deck {
         return false;
     }
 
+    addCard(card){
+        this.cards.push(card);
+    }
+
     get(i){
         return this.cards[i];
+    }
+
+    size(){
+        return cards.size();
     }
 }
 

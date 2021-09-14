@@ -80,7 +80,7 @@ function addPlayer(name){
     let a = table.insertRow();
     for(let i = 0; i < 2; i++){
         let x = a.insertCell(i);
-        let temp = createCardButton(name + (i + 1));
+        let temp = createCardButton(name + String(i + 1));
         x.appendChild(temp[1]);
         x.appendChild(temp[0]);
     }
