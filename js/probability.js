@@ -1,19 +1,3 @@
-let conversion = {};
-conversion['2'] = 2;
-conversion['3'] = 3;
-conversion['4'] = 4;
-conversion['5'] = 5;
-conversion['6'] = 6;
-conversion['7'] = 7;
-conversion['8'] = 8;
-conversion['9'] = 9;
-conversion['10'] = 10;
-conversion['J'] = 11;
-conversion['Q'] = 12;
-conversion['K'] = 13;
-conversion['A'] = 1;
-
-
 function calculateHand(flop, hand){
     let arr = [];
     let ans = 0;
@@ -116,12 +100,6 @@ function calculateProbability() {
         probString += "Player " + (i + 1) + ": " + Math.round(wins[i] / total * 10000.0) / 100.0 + "\n";
     }
     document.getElementById("probability").innerHTML = probString;
-}
-
-async function getApiRequest(url) {
-    let data;
-    await fetch(url).then(response => response.json()).then(response => data = response['winners']['cards']);
-    return data;
 }
 
 function getCombinations(length, goal, set = new Set()){
