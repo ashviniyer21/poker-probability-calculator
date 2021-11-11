@@ -8,6 +8,7 @@ for(let i = 0; i < 5; i++){
     x.appendChild(temp[0]);
 }
 addPlayer("Player 1");
+addPlayer("Player 2")
 let playerAdd = document.getElementById("add");
 let count = 3;
 playerAdd.onclick = function () {

@@ -16,14 +16,18 @@ class Card {
             tempVal = parseInt(value);
         }
         if(suit === "S"){
-            this.sortVal = tempVal;
+            this.sortVal = tempVal * 4;
         } else if(suit === "C"){
-            this.sortVal = 13 + tempVal;
+            this.sortVal = tempVal * 4 + 1;
         } else if(suit === "D"){
-            this.sortVal = 26 + tempVal;
+            this.sortVal = tempVal * 4 + 2;
         } else {
-            this.sortVal = 39 + tempVal;
+            this.sortVal = tempVal * 4 + 3;
         }
+    }
+
+    toString() {
+        return this.value + this.suit;
     }
 }
 
@@ -57,7 +61,7 @@ class Deck {
     }
 
     size(){
-        return cards.size();
+        return cards.length;
     }
 }
 
