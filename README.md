@@ -1,4 +1,4 @@
-# poker-probability-calculator
+# (poker-probability-calculator)[https://ashviniyer21.github.io/poker-probability-calculator]
 Calculates probability of winning poker hands
 
 ### Features
